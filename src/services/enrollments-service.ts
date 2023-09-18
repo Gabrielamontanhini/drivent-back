@@ -21,16 +21,20 @@ async function getAddressFromCEP(cep: string): Promise<ObjectViaCEP> {
     throw invalidDataError("CEP");
   }
 
-  const location = result as RawObjectViaCEP;
+ 
+  const validatedRawObject = result as RawObjectViaCEP;
+s
 
+  let myResult = {...validatedRawObject.data,
+      cidade: validatedRawObject.data.localidade};
+  delete myResult.cep;
+  delete myResult.localidade;
+  delete myResult.ibge;
+  delete myResult.gia;
+  delete myResult.siafi;
+  delete myResult.ddd;
 
-  return {
-    logradouro: location.data.logradouro,
-    complemento: location.data.complemento,
-    bairro: location.data.bairro,
-    cidade: location.data.localidade,
-    uf: location.data.uf
-  }
+  return myResult;
 }
 
 async function getOneWithAddressByUserId(userId: number): Promise<GetOneWithAddressByUserIdResult> {
@@ -62,8 +66,8 @@ async function createOrUpdateEnrollmentWithAddress(params: CreateOrUpdateEnrollm
   enrollment.birthday = new Date(enrollment.birthday);
   const address = getAddressForUpsert(params.address);
 
-  // TODO - Verificar se o CEP é válido antes de associar ao enrollment.
-  const cepString = address.cep.replace(/\D/g, '') 
+  
+  const cepString = address.cep.replace(/\D/g, '') //FIXME o cep 
   await getAddressFromCEP(cepString);
 
   const newEnrollment = await enrollmentRepository.upsert(params.userId, enrollment, exclude(enrollment, 'userId'));

@@ -17,7 +17,7 @@ export type RawErrorViaCEP = {
   }
 }
 
-export type ViaCEPAddressResponse = {
+export type RawObjectViaCEP = {
   data: {
     cep: "string";
     logradouro: "string";
@@ -40,4 +40,4 @@ export type ObjectViaCEP = {
   uf: "string";
 }
 
-export type ResponseViaCEP = RawErrorViaCEP | ViaCEPAddressResponse;
+export type ResponseViaCEP = RawErrorViaCEP | RawObjectViaCEP;
