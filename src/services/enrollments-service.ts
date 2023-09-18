@@ -70,7 +70,7 @@ async function createOrUpdateEnrollmentWithAddress(params: CreateOrUpdateEnrollm
   const address = getAddressForUpsert(params.address);
 
   
-  const cepString = address.addressDetail.cep.replace(/\D/g, '') //FIXME o cep 
+  const cepString = address.cep.replace(/\D/g, '') //FIXME o cep 
   await getAddressFromCEP(cepString);
 
   const newEnrollment = await enrollmentRepository.upsert(params.userId, enrollment, exclude(enrollment, 'userId'));
