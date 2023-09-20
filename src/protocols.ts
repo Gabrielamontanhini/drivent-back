@@ -11,33 +11,18 @@ export type RequestError = {
   message: string;
 };
 
-export type RawErrorViaCEP = {
-  data: {
-    erro: true;
-  }
-}
+export type ViaCEPAddressError = {
+  error: boolean;
+};
 
-export type RawObjectViaCEP = {
-  data: {
-    cep: "string";
-    logradouro: "string";
-    complemento: "string";
-    bairro: "string";
-    localidade: "string";
-    uf: "string";
-    ibge: "string";
-    gia: "string";
-    ddd: "string";
-    siafi: "string";
-  }
-}
+export type AddressEnrollment = {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+};
 
-export type ObjectViaCEP = {
-  logradouro: "string";
-  complemento: "string";
-  bairro: "string";
-  cidade: "string";
-  uf: "string";
-}
-
-export type ResponseViaCEP = RawErrorViaCEP | RawObjectViaCEP;
+export type CEP = {
+  cep: string;
+};
